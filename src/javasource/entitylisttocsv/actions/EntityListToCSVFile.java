@@ -37,22 +37,22 @@ import org.apache.commons.io.IOUtils;
 public class EntityListToCSVFile extends CustomJavaAction<java.lang.Boolean>
 {
 	private java.util.List<IMendixObject> Entities;
-	private IMendixObject __CSVFileDocument;
-	private system.proxies.FileDocument CSVFileDocument;
+	private IMendixObject __TheCSVFileDocument;
+	private system.proxies.FileDocument TheCSVFileDocument;
 	private java.lang.Boolean IncludeHeader;
 
-	public EntityListToCSVFile(IContext context, java.util.List<IMendixObject> Entities, IMendixObject CSVFileDocument, java.lang.Boolean IncludeHeader)
+	public EntityListToCSVFile(IContext context, java.util.List<IMendixObject> Entities, IMendixObject TheCSVFileDocument, java.lang.Boolean IncludeHeader)
 	{
 		super(context);
 		this.Entities = Entities;
-		this.__CSVFileDocument = CSVFileDocument;
+		this.__TheCSVFileDocument = TheCSVFileDocument;
 		this.IncludeHeader = IncludeHeader;
 	}
 
 	@Override
 	public java.lang.Boolean executeAction() throws Exception
 	{
-		this.CSVFileDocument = __CSVFileDocument == null ? null : system.proxies.FileDocument.initialize(getContext(), __CSVFileDocument);
+		this.TheCSVFileDocument = __TheCSVFileDocument == null ? null : system.proxies.FileDocument.initialize(getContext(), __TheCSVFileDocument);
 
 		// BEGIN USER CODE
 		boolean addHeader = this.IncludeHeader;
@@ -86,7 +86,7 @@ public class EntityListToCSVFile extends CustomJavaAction<java.lang.Boolean>
 		try (
 			InputStream is = IOUtils.toInputStream(sw.toString(), StandardCharsets.UTF_8)
 		) {
-			Core.storeFileDocumentContent(this.getContext(), this.CSVFileDocument.getMendixObject(), is);
+			Core.storeFileDocumentContent(this.getContext(), this.TheCSVFileDocument.getMendixObject(), is);
 		}
 
 		return true;
